@@ -11,9 +11,9 @@ int _printf(const char *format, ...)
 
 int i, printed = 0, printed_chars = 0;
 
-int flags, width, precis, size, buff_ind = 0;
+int flags, width, precision, size, buff_ind = 0;
 
-va_list chris;
+va_list list;
 
 char buffer[BUFF_SIZE];
 
@@ -21,7 +21,7 @@ if (format == NULL)
 
 return (-1);
 
-va_start(chris, format);
+va_start(list, format);
 
 for (i = 0; format && format[i] != '\0'; i++)
 
@@ -51,17 +51,17 @@ print_buffer(buffer, &buff_ind);
 
 flags = get_flags(format, &i);
 
-width = get_width(format, &i, chris);
+width = get_width(format, &i, list);
 
-precis = get_precis(format, &i, chris);
+precision = get_precision(format, &i, list);
 
 size = get_size(format, &i);
 
 ++i;
 
-printed = handle_print(format, &i, chris, buffer,
+printed = handle_print(format, &i, list, buffer,
 
-flags, width, precis, size);
+flags, width, precision, size);
 
 if (printed == -1)
 
@@ -73,13 +73,21 @@ printed_chars += printed;
 
 }
 
+
+
 print_buffer(buffer, &buff_ind);
 
-va_end(chris);
+
+
+va_end(list);
+
+
 
 return (printed_chars);
 
 }
+
+
 
 /**
  * print_buffer - Prints the contents of the buffer if it exist
