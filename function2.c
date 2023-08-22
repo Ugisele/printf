@@ -1,4 +1,5 @@
 #include "main.h"
+#include "stdlib.h"
 /****************** PRINT POINTER ******************/
 /**
  * print_pointer - Prints the value of a pointer variable
